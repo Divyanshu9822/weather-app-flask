@@ -26,31 +26,39 @@
       </header>
       <main>
         <section class="location">
-          <div class="city" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+          {% if not error %}
+          <div
+            class="city"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 5px;
+            "
+          >
             {{ city_name }}
             <span>
-              {% if weather_data %}
-                {% if weather_data.weather[0].icon %}
-                  <img
-                    src="http://openweathermap.org/img/wn/{{ weather_data.weather[0].icon }}.png"
-                    alt="Weather Icon"
-                  />
-                {% endif %}
-              {% endif %}
+              {% if weather_data %} {% if weather_data.weather[0].icon %}
+              <img
+                src="http://openweathermap.org/img/wn/{{ weather_data.weather[0].icon }}.png"
+                alt="Weather Icon"
+              />
+              {% endif %} {% endif %}
             </span>
           </div>
+
           <div class="date">{{ current_date }}</div>
+          {% endif %}
         </section>
         {% if error %}
-        <div class="error">
-          {{ error }}
-        </div>
+        <div class="error">{{ error }}</div>
         {% elif weather_data %}
         <div class="current">
           <div class="temp">{{ weather_data.main.temp }}<span>°c</span></div>
           <div class="weather">{{ weather_data.weather[0].description }}</div>
           <div class="hi-low">
-            {{ weather_data.main.temp_min }}°c / {{ weather_data.main.temp_max }}°c
+            {{ weather_data.main.temp_min }}°c / {{ weather_data.main.temp_max
+            }}°c
           </div>
         </div>
         {% endif %}
